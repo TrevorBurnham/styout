@@ -1,0 +1,68 @@
+## Styout
+
+A simple wrapper around [sty](https://github.com/TrevorBurnham/sty) for pretty console logging. You can set the desired verbosity level and customize the output format within a namespace.
+
+## Installation
+
+Get node and [npm](http://npmjs.org). `npm install styout`. Done.
+
+## Usage
+
+Let's say your project is named `MyProject`. Then at the top of each of your modules, add
+
+    out = (require 'styout').instance 'MyProject'
+
+Then `out` will be your project's unique `styout` instance. There are five ways of doing output:
+
+    out       'This will always show up'
+    out.debug 'This will only show up if verbosity is set to DEBUG_VERBOSITY'
+    out.info  'This will show up if verbosity is set to DEBUG_VERBOSITY or INFO_VERBOSITY'
+    out.warn  'This will show up if verbosity is anything but ERROR_VERBOSITY'
+    out.error 'This will always show up, with an attention-grabbing [ERROR] prefix'
+
+All of these use `sty.parse` internally, so you can use pseudo-HTML, e.g.
+
+<code>    out 'Our prices are &lt;b&gt;insane!&lt;/b&gt;'</code>
+    
+gives you
+
+<code>    Our prices are **insane**!</code>
+
+Setting the verbosity is simple:
+
+    out.verbosity = out.DEBUG_VERBOSITY   # default is INFO_VERBOSITY
+
+By default, `debug`, `info` and `error` output is prefixed with `[DEBUG]`, `[INFO]` and `[ERROR]`. You can customize these prefixes with
+
+    out.defaultPrefix = '`out`:'
+    out.debugPrefix =   '`out.debug`:'    # defaults to '[<blue>DEBUG</blue>]'
+    out.infoPrefix =    '`out.info`:'     # defaults to '[<yellow>INFO</yellow>]'
+    out.warnPrefix =    '`out.warn`:'     # defaults to '[<red>WARNING</red>]'
+    out.errorPrefix =   '`out.error`:'    # defaults to '[<red>ERROR</red>]'
+    out.allPrefix =     'This will come before all of the above'
+
+Prefixes can also be a callback; that lets you, for instance, write your own timestamp function. Here's a simple example:
+
+    out.allPrefix = -> "#{new Date()}\t"
+
+## Copyright and license
+
+Copyright (c) 2011 Trevor Burnham and made available under the [MIT License](http://www.opensource.org/licenses/mit-license.php):
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
