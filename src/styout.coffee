@@ -36,11 +36,14 @@ class Styout
       args.unshift @allPrefix
       args.unshift @errorPrefix
       out args...
+  
+  parse: (args...) -> out args..., true
 
-out = (args...) ->
+out = (args..., returnOnly = false) ->
   for o, index in args
     args[index] = sty.parse(o) if typeof o is 'string'
-  console.log args...
+  console.log args... unless returnOnly
+  [args...]
 
 instances = {}
 exports.instance = (id) ->
