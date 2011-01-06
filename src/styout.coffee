@@ -37,12 +37,15 @@ class Styout
       args.unshift @errorPrefix
       out args...
   
-  parse: (args...) -> out args..., true
+  parse: (args...) ->
+    for o, index in args
+      args[index] = sty.parse(o) if typeof o is 'string'
+    [args...]
 
-out = (args..., returnOnly = false) ->
+out = (args...) ->
   for o, index in args
     args[index] = sty.parse(o) if typeof o is 'string'
-  console.log args... unless returnOnly
+  console.log args...
   [args...]
 
 instances = {}
