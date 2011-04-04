@@ -1,4 +1,4 @@
-out = (require 'styout').instance 'styout demo'
+out = (require './src/styout').instance 'styout demo'
 
 out.verbosity = out.DEBUG_VERBOSITY
 out 'This calls for <u>default</u> output!'
